@@ -53,6 +53,73 @@ return {
         filetypes = { 'markdown', 'mdx' },
       })
 
+      vim.lsp.config('cssls', {
+        filetypes = { 'css', 'less' },
+      })
+
+      vim.lsp.config('css_variables', {
+        filetypes = { 'css', 'less' },
+      })
+
+      vim.lsp.config('somesass_ls', {
+        root_markers = { '.git', 'package.json' },
+        before_init = function(_, config)
+          if not config.root_dir then
+            return
+          end
+          local aliases = (config.settings and config.settings.somesass and config.settings.somesass.workspace and config.settings.somesass.workspace.importAliases) or {}
+          aliases['@/'] = 'src/'
+          local src_dir = vim.fs.joinpath(config.root_dir, 'src')
+          local stat = vim.uv.fs_stat(src_dir)
+          if stat and stat.type == 'directory' then
+            local handle = vim.uv.fs_scandir(src_dir)
+            if handle then
+              while true do
+                local name, typ = vim.uv.fs_scandir_next(handle)
+                if not name then
+                  break
+                end
+                if typ == 'directory' then
+                  aliases['@/' .. name .. '/'] = 'src/' .. name .. '/'
+                end
+              end
+            end
+          end
+          config.settings.somesass.workspace.importAliases = aliases
+          config.settings.somesass.workspace.loadPaths = { 'src' }
+        end,
+        settings = {
+          somesass = {
+            workspace = {
+              importAliases = {
+                ['@/'] = 'src/',
+                ['@/styles/'] = 'src/styles/',
+                ['@/components/'] = 'src/components/',
+                ['@/assets/'] = 'src/assets/',
+                ['@/utils/'] = 'src/utils/',
+                ['@/pages/'] = 'src/pages/',
+                ['@/hooks/'] = 'src/hooks/',
+                ['@/App/'] = 'src/App/',
+              },
+              loadPaths = { 'src' },
+            },
+            scss = {
+              links = {
+                enabled = true,
+              },
+              completion = {
+                includeFromCurrentDocument = true,
+              },
+              hover = {
+                enabled = true,
+                documentation = true,
+                references = true,
+              },
+            },
+          },
+        },
+      })
+
       -- ==================================================================== --
       --                          CAPABILITIES SETUP                          --
       -- ==================================================================== --
@@ -85,6 +152,7 @@ return {
         'hyprls',
         'basedpyright',
         'ruff',
+        'somesass_ls',
       })
     end,
   },

@@ -67,7 +67,7 @@ The configuration separates **core editor options**, **general keymaps**, and **
 | Module | Category | Featured Plugins & Highlights |
 | :--- | :--- | :--- |
 | [`ui.lua`](lua/plugins/ui.lua) | **Appearance & Themes** | `visual_studio_code`, `catppuccin`, `lualine.nvim`, `nvim-web-devicons`, `deadcolumn.nvim`, `ccc.nvim` (color picker) |
-| [`lsp.lua`](lua/plugins/lsp.lua) | **Language Server Protocol** | `nvim-lspconfig` (native `vim.lsp`), `mason.nvim`, `lspsaga.nvim`, `lazydev.nvim`, `inc-rename.nvim`, `typescript-tools.nvim` |
+| [`lsp.lua`](lua/plugins/lsp.lua) | **Language Server Protocol** | `nvim-lspconfig` (native `vim.lsp`), `mason.nvim`, `lspsaga.nvim`, `lazydev.nvim`, `inc-rename.nvim`, `typescript-tools.nvim`, `somesass_ls` (SassDoc & SCSS) |
 | [`completion.lua`](lua/plugins/completion.lua) | **Autocompletion** | `blink.cmp` (Rust fuzzy matching), `friendly-snippets`, `blink-ripgrep`, `csc.nvim`, `colorful-menu.nvim` |
 | [`treesitter.lua`](lua/plugins/treesitter.lua) | **Syntax & Motions** | `nvim-treesitter` (20+ parsers), `nvim-treesitter-textobjects` (syntax-aware motions & repeatable moves) |
 | [`telescope.lua`](lua/plugins/telescope.lua) | **Fuzzy Finder** | `telescope.nvim`, `telescope-fzf-native`, `media-files`, `repo`, `all-recent`, `zoxide` |
@@ -230,6 +230,10 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
      },
    })
    ```
+
+3. **Styles & Preprocessor Architecture (`somesass_ls` vs `cssls`)**:
+   - **SCSS / Sass (`somesass_ls`)**: Configured with dynamic path alias discovery (`before_init`) scanning `src/` to resolve `@/` imports (e.g. `@/styles/...`), ensuring full SassDoc hover previews and symbol navigation on mixins, functions, and variables.
+   - **CSS Server Scoping (`cssls` & `css_variables`)**: Explicitly scoped to `css` and `less` filetypes. Because `somesass_ls` bundles the CSS language service (handling MDN documentation and custom property completions), this prevents duplicate hover dialogs and conflicting completion menus in `.scss` files while keeping CSS language features intact in `.css` files.
 
 ### 3. Adding Keymaps
 - **General keymaps**: Add to [`lua/config/keymaps.lua`](lua/config/keymaps.lua).
