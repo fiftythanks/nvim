@@ -9,11 +9,12 @@
 
 A clean, modular, and high-performance Neovim setup powered by **[lazy.nvim](https://github.com/folke/lazy.nvim)** with full LSP, Treesitter, DAP debugging, testing, and AI assistant integration.
 
-[Architecture](#-architecture) •
-[Plugin Breakdown](#-plugin-breakdown) •
-[Keybindings](#-keybindings-cheat-sheet) •
-[Customization](#-how-to-customize--extend) •
-[Prerequisites](#-prerequisites)
+[Architecture](#architecture) •
+[Plugin Breakdown](#plugin-breakdown) •
+[Keybindings](#keybindings-cheat-sheet) •
+[Customization](#how-to-customize--extend) •
+[Prerequisites](#prerequisites) •
+[Installation](#installation)
 
 </div>
 
