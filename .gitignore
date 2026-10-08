@@ -1,0 +1,18 @@
+# Compiled Treesitter parser binaries (machine-specific)
+/parser/
+
+# Local machine-specific configuration and secrets
+/lua/config/local.lua
+.env
+.env.*
+
+# Backup, swap, and undo files
+*.swp
+*.swo
+*.bak
+*~
+.netrwhist
+
+# OS artifacts
+.DS_Store
+Thumbs.db

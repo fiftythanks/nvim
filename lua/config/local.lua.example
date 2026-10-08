@@ -1,0 +1,10 @@
+-- [[ LOCAL MACHINE CONFIGURATION TEMPLATE ]]
+-- Copy this file to `lua/config/local.lua` to set machine-specific options and private tokens.
+-- Note: `lua/config/local.lua` is git-ignored and will never be committed to Git.
+
+-- Google Cloud Project ID for Vertex AI (CodeCompanion)
+vim.g.vertex_project_id = 'your-gcp-project-id'
+-- vim.g.vertex_region = 'global'
+
+-- Custom path to codelldb binary (if not installed in standard PATH or /opt/codelldb/)
+-- vim.g.codelldb_path = '/custom/path/to/codelldb'
