@@ -17,6 +17,7 @@ return {
         jsonc = { 'prettierd' },
         toml = { 'taplo' },
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
+        markdown = { 'prettierd' },
       },
       format_on_save = {
         lsp_format = 'fallback',
@@ -45,7 +46,7 @@ return {
       require('lint').linters_by_ft = {
         yaml = { 'actionlint', 'yamllint' },
         lua = { 'luacheck' },
-        makrdown = { 'mado' },
+        markdown = { 'mado' },
         bash = { 'shellcheck' },
       }
     end,
