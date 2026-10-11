@@ -49,6 +49,7 @@ vim.o.expandtab = true
 -- Line wrapping
 vim.o.linebreak = true
 vim.o.breakindent = true
+vim.o.breakat = ' \t-'
 
 -- Undo persistence
 vim.o.undofile = true
