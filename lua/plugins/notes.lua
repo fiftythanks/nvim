@@ -24,6 +24,13 @@ return {
         checkboxes = {
           enable = true,
         },
+        hyperlinks = {
+          enable = true,
+          default = {
+            icon = '',
+            hl = 'MarkviewHyperlink',
+          },
+        },
       },
       markdown = {
         inline_elements = true,
