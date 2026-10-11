@@ -74,11 +74,11 @@ The configuration separates **core editor options**, **general keymaps**, and **
 | [`telescope.lua`](lua/plugins/telescope.lua) | **Fuzzy Finder** | `telescope.nvim`, `telescope-fzf-native`, `media-files`, `repo`, `all-recent`, `zoxide` |
 | [`editor.lua`](lua/plugins/editor.lua) | **Workspace & Navigation** | `nvim-tree.lua`, `trouble.nvim`, `todo-comments.nvim`, `nerdy.nvim` (icon picker), `range-highlight`, `rooter.nvim` |
 | [`coding.lua`](lua/plugins/coding.lua) | **Editing Utilities** | `nvim-autopairs`, `nvim-surround`, `Comment.nvim`, `refactoring.nvim`, `vim-illuminate` |
-| [`formatting.lua`](lua/plugins/formatting.lua) | **Lint & Format** | `conform.nvim` (Prettier, Stylua, Ruff, Shfmt, Taplo) & `nvim-lint` (Actionlint, Shellcheck, etc.) |
+| [`formatting.lua`](lua/plugins/formatting.lua) | **Lint & Format** | `conform.nvim` (Prettier / prettierd, Stylua, Ruff, Shfmt, Taplo) & `nvim-lint` (Actionlint, Shellcheck, Mado) |
 | [`git.lua`](lua/plugins/git.lua) | **Version Control** | `gitsigns.nvim` (inline diffs, stage hunks, blame), `neogit` (interactive git client) |
 | [`dap.lua`](lua/plugins/dap.lua) | **Debugging & Tasks** | `nvim-dap` (CodeLLDB / Tauri / Rust), `nvim-dap-ui`, `nvim-dap-python`, `overseer.nvim` (task runner) |
 | [`testing.lua`](lua/plugins/testing.lua) | **Test Runner** | `neotest` with adapters for `neotest-jest`, `neotest-playwright`, and `neotest-python` |
-| [`notes.lua`](lua/plugins/notes.lua) | **Note Taking & Docs** | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` |
+| [`notes.lua`](lua/plugins/notes.lua) | **Note Taking & Docs** | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (link styling & clean preview) |
 | [`ai.lua`](lua/plugins/ai.lua) | **AI Pair Programming** | `codecompanion.nvim` (Vertex AI / Gemini adapter), `copilot.lua`, `img-clip.nvim` |
 | [`lang.lua`](lua/plugins/lang.lua) | **Language Specific** | `rustaceanvim` (custom rust-analyzer settings), `venv-selector.nvim` |
 
@@ -171,6 +171,12 @@ Leader key is mapped to <kbd>Space</kbd>.
 | <kbd>Space</kbd> <kbd>t</kbd> <kbd>w</kbd> | Toggle test watch mode |
 | <kbd>Space</kbd> <kbd>t</kbd> <kbd>s</kbd> | Toggle test summary |
 
+### Notes & Markdown
+
+| Keybinding | Mode | Description |
+| :--- | :---: | :--- |
+| <kbd>Space</kbd> <kbd>l</kbd> <kbd>r</kbd> | `n` | Extract inline Markdown link to reference definition (`:MarkdownExtractRefLink`) |
+
 ---
 
 ## How to Customize & Extend
@@ -244,7 +250,12 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
 - **Vim options (`vim.o` / `vim.opt`)**: Edit [`lua/config/options.lua`](lua/config/options.lua).
 - **Autocommands or User Commands**: Edit [`lua/config/autocmds.lua`](lua/config/autocmds.lua).
 
-### 5. Local & Private Overrides (Git-Ignored)
+### 5. Markdown & Notes Workflow
+- **Fluid Soft Wrapping**: Breakpoints are restricted via `vim.o.breakat = ' \t-'` (both globally and per-buffer) so Neovim never breaks lines mid-URL (e.g. at `/`, `?`, `&`) or leaves orphaned punctuation when `markview.nvim` conceals link URLs. Hard line breaking (`textwidth = 0`) is disabled in insert mode.
+- **Reference Link Extraction**: Press `<leader>lr` (or run `:MarkdownExtractRefLink`) on any Markdown line containing an inline link `[label](url)` to extract it into a reference link `[label][key]` and automatically append `[key]: url` to the bottom of the document.
+- **Automated Formatting & Linting**: Markdown files are formatted on save using `prettierd` (via `conform.nvim`) and linted with `mado` (via `nvim-lint`).
+
+### 6. Local & Private Overrides (Git-Ignored)
 If you have machine-specific binary paths, private API tokens, or GCP project IDs that should **never be committed to Git**:
 
 1. Copy the template:
