@@ -78,7 +78,7 @@ The configuration separates **core editor options**, **general keymaps**, and **
 | [`git.lua`](lua/plugins/git.lua) | **Version Control** | `gitsigns.nvim` (inline diffs, stage hunks, blame), `neogit` (interactive git client) |
 | [`dap.lua`](lua/plugins/dap.lua) | **Debugging & Tasks** | `nvim-dap` (CodeLLDB / Tauri / Rust), `nvim-dap-ui`, `nvim-dap-python`, `overseer.nvim` (task runner) |
 | [`testing.lua`](lua/plugins/testing.lua) | **Test Runner** | `neotest` with adapters for `neotest-jest`, `neotest-playwright`, and `neotest-python` |
-| [`notes.lua`](lua/plugins/notes.lua) | **Note Taking & Docs** | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (link styling & clean preview) |
+| [`notes.lua`](lua/plugins/notes.lua) | **Note Taking & Docs** | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (inline preview), `markdown-preview.nvim` (browser preview) |
 | [`ai.lua`](lua/plugins/ai.lua) | **AI Pair Programming** | `codecompanion.nvim` (Vertex AI / Gemini adapter), `copilot.lua`, `img-clip.nvim` |
 | [`lang.lua`](lua/plugins/lang.lua) | **Language Specific** | `rustaceanvim` (custom rust-analyzer settings), `venv-selector.nvim` |
 
@@ -176,6 +176,7 @@ Leader key is mapped to <kbd>Space</kbd>.
 | Keybinding | Mode | Description |
 | :--- | :---: | :--- |
 | <kbd>Space</kbd> <kbd>l</kbd> <kbd>r</kbd> | `n` | Extract inline Markdown link to reference definition (`:MarkdownExtractRefLink`) |
+| <kbd>Space</kbd> <kbd>m</kbd> <kbd>p</kbd> | `n` | Toggle Markdown browser live preview (`:MarkdownPreviewToggle`) |
 
 ---
 
@@ -253,6 +254,7 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
 ### 5. Markdown & Notes Workflow
 - **Fluid Soft Wrapping**: Breakpoints are restricted via `vim.o.breakat = ' \t-'` (both globally and per-buffer) so Neovim never breaks lines mid-URL (e.g. at `/`, `?`, `&`) or leaves orphaned punctuation when `markview.nvim` conceals link URLs. Hard line breaking (`textwidth = 0`) is disabled in insert mode.
 - **Reference Link Extraction**: Press `<leader>lr` (or run `:MarkdownExtractRefLink`) on any Markdown line containing an inline link `[label](url)` to extract it into a reference link `[label][key]` and automatically append `[key]: url` to the bottom of the document.
+- **Browser Live Preview**: Press `<leader>mp` (or run `:MarkdownPreviewToggle`) to open synchronized, real-time live preview in your default web browser powered by `markdown-preview.nvim` with full GitHub markdown styling, Mermaid diagrams, and KaTeX math support.
 - **Automated Formatting & Linting**: Markdown files are formatted on save using `prettierd` (via `conform.nvim`) and linted with `mado` (via `nvim-lint`).
 
 ### 6. Local & Private Overrides (Git-Ignored)
