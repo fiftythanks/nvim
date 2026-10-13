@@ -46,6 +46,30 @@ return {
     cmd = 'Store',
   },
 
+  -- Markdown browser live previewer
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown', 'quarto' },
+    build = function()
+      require('lazy').load({ plugins = { 'markdown-preview.nvim' } })
+      vim.fn['mkdp#util#install']()
+    end,
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown', 'quarto' }
+      vim.g.mkdp_auto_close = 1
+      vim.g.mkdp_echo_preview_url = 1
+    end,
+    keys = {
+      {
+        '<leader>mp',
+        '<cmd>MarkdownPreviewToggle<cr>',
+        desc = 'Toggle Markdown browser preview',
+        ft = { 'markdown', 'quarto' },
+      },
+    },
+  },
+
   -- Obsidian note-taking integration
   {
     'obsidian-nvim/obsidian.nvim',
