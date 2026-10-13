@@ -51,21 +51,30 @@ return {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown', 'quarto' },
-    build = function()
-      require('lazy').load({ plugins = { 'markdown-preview.nvim' } })
-      vim.fn['mkdp#util#install']()
-    end,
+    build = 'cd app && rm -rf bin && npm install',
     init = function()
       vim.g.mkdp_filetypes = { 'markdown', 'quarto' }
       vim.g.mkdp_auto_close = 1
       vim.g.mkdp_echo_preview_url = 1
+      vim.g.mkdp_browser = vim.env.BROWSER or ''
+
+      -- Ensure broken precompiled pkg binaries that crash on modern Linux are removed
+      local bin_dir = vim.fs.joinpath(
+        vim.fn.stdpath('data'),
+        'lazy',
+        'markdown-preview.nvim',
+        'app',
+        'bin'
+      )
+      if vim.uv.fs_stat(bin_dir) then
+        vim.fn.delete(bin_dir, 'rf')
+      end
     end,
     keys = {
       {
         '<leader>mp',
         '<cmd>MarkdownPreviewToggle<cr>',
         desc = 'Toggle Markdown browser preview',
-        ft = { 'markdown', 'quarto' },
       },
     },
   },
