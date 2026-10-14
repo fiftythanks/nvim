@@ -51,7 +51,7 @@ return {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown', 'quarto' },
-    build = 'cd app && rm -rf bin && npm install',
+    build = 'cd app && rm -rf bin && npx --yes yarn install --frozen-lockfile',
     init = function()
       vim.g.mkdp_filetypes = { 'markdown', 'quarto' }
       vim.g.mkdp_auto_close = 1
