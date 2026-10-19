@@ -56,7 +56,7 @@ The configuration separates **core editor options**, **general keymaps**, and **
         ├── lsp.lua            # Native LSP config, Mason, Lspsaga, inc-rename
         ├── notes.lua          # Neorg, Obsidian, Markview, Store
         ├── telescope.lua      # Telescope fuzzy finder & extensions
-        ├── testing.lua        # Neotest (Jest, Playwright, Python)
+        ├── testing.lua        # Neotest (Jest, Vitest, Playwright, Python)
         ├── treesitter.lua     # Syntax highlighting, queries, & textobjects
         └── ui.lua             # VS Code / Catppuccin themes, Lualine, Devicons, ccc
 ```
@@ -65,22 +65,22 @@ The configuration separates **core editor options**, **general keymaps**, and **
 
 ## Plugin Breakdown
 
-| Module | Category | Featured Plugins & Highlights |
-| :--- | :--- | :--- |
-| [`ui.lua`](lua/plugins/ui.lua) | **Appearance & Themes** | `visual_studio_code`, `catppuccin`, `lualine.nvim`, `nvim-web-devicons`, `deadcolumn.nvim`, `ccc.nvim` (color picker) |
-| [`lsp.lua`](lua/plugins/lsp.lua) | **Language Server Protocol** | `nvim-lspconfig` (native `vim.lsp`), `mason.nvim`, `lspsaga.nvim`, `lazydev.nvim`, `inc-rename.nvim`, `typescript-tools.nvim`, `somesass_ls` (SassDoc & SCSS) |
-| [`completion.lua`](lua/plugins/completion.lua) | **Autocompletion** | `blink.cmp` (Rust fuzzy matching), `friendly-snippets`, `blink-ripgrep`, `csc.nvim`, `colorful-menu.nvim` |
-| [`treesitter.lua`](lua/plugins/treesitter.lua) | **Syntax & Motions** | `nvim-treesitter` (20+ parsers), `nvim-treesitter-textobjects` (syntax-aware motions & repeatable moves) |
-| [`telescope.lua`](lua/plugins/telescope.lua) | **Fuzzy Finder** | `telescope.nvim`, `telescope-fzf-native`, `media-files`, `repo`, `all-recent`, `zoxide` |
-| [`editor.lua`](lua/plugins/editor.lua) | **Workspace & Navigation** | `nvim-tree.lua`, `trouble.nvim`, `todo-comments.nvim`, `nerdy.nvim` (icon picker), `range-highlight`, `rooter.nvim` |
-| [`coding.lua`](lua/plugins/coding.lua) | **Editing Utilities** | `nvim-autopairs`, `nvim-surround`, `Comment.nvim`, `refactoring.nvim`, `vim-illuminate` |
-| [`formatting.lua`](lua/plugins/formatting.lua) | **Lint & Format** | `conform.nvim` (Prettier / prettierd, Stylua, Ruff, Shfmt, Taplo) & `nvim-lint` (Actionlint, Shellcheck, Mado) |
-| [`git.lua`](lua/plugins/git.lua) | **Version Control** | `gitsigns.nvim` (inline diffs, stage hunks, blame), `neogit` (interactive git client) |
-| [`dap.lua`](lua/plugins/dap.lua) | **Debugging & Tasks** | `nvim-dap` (CodeLLDB / Tauri / Rust), `nvim-dap-ui`, `nvim-dap-python`, `overseer.nvim` (task runner) |
-| [`testing.lua`](lua/plugins/testing.lua) | **Test Runner** | `neotest` with adapters for `neotest-jest`, `neotest-playwright`, and `neotest-python` |
-| [`notes.lua`](lua/plugins/notes.lua) | **Note Taking & Docs** | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (inline preview), `markdown-preview.nvim` (browser preview) |
-| [`ai.lua`](lua/plugins/ai.lua) | **AI Pair Programming** | `codecompanion.nvim` (Vertex AI / Gemini adapter), `copilot.lua`, `img-clip.nvim` |
-| [`lang.lua`](lua/plugins/lang.lua) | **Language Specific** | `rustaceanvim` (custom rust-analyzer settings), `venv-selector.nvim` |
+| Module                                         | Category                     | Featured Plugins & Highlights                                                                                                                                 |
+| :--------------------------------------------- | :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [`ui.lua`](lua/plugins/ui.lua)                 | **Appearance & Themes**      | `visual_studio_code`, `catppuccin`, `lualine.nvim`, `nvim-web-devicons`, `deadcolumn.nvim`, `ccc.nvim` (color picker)                                         |
+| [`lsp.lua`](lua/plugins/lsp.lua)               | **Language Server Protocol** | `nvim-lspconfig` (native `vim.lsp`), `mason.nvim`, `lspsaga.nvim`, `lazydev.nvim`, `inc-rename.nvim`, `typescript-tools.nvim`, `somesass_ls` (SassDoc & SCSS) |
+| [`completion.lua`](lua/plugins/completion.lua) | **Autocompletion**           | `blink.cmp` (Rust fuzzy matching), `friendly-snippets`, `blink-ripgrep`, `csc.nvim`, `colorful-menu.nvim`                                                     |
+| [`treesitter.lua`](lua/plugins/treesitter.lua) | **Syntax & Motions**         | `nvim-treesitter` (20+ parsers), `nvim-treesitter-textobjects` (syntax-aware motions & repeatable moves)                                                      |
+| [`telescope.lua`](lua/plugins/telescope.lua)   | **Fuzzy Finder**             | `telescope.nvim`, `telescope-fzf-native`, `media-files`, `repo`, `all-recent`, `zoxide`                                                                       |
+| [`editor.lua`](lua/plugins/editor.lua)         | **Workspace & Navigation**   | `nvim-tree.lua`, `trouble.nvim`, `todo-comments.nvim`, `nerdy.nvim` (icon picker), `range-highlight`, `rooter.nvim`                                           |
+| [`coding.lua`](lua/plugins/coding.lua)         | **Editing Utilities**        | `nvim-autopairs`, `nvim-surround`, `Comment.nvim`, `refactoring.nvim`, `vim-illuminate`                                                                       |
+| [`formatting.lua`](lua/plugins/formatting.lua) | **Lint & Format**            | `conform.nvim` (Prettier / prettierd, Stylua, Ruff, Shfmt, Taplo) & `nvim-lint` (Actionlint, Shellcheck, Mado)                                                |
+| [`git.lua`](lua/plugins/git.lua)               | **Version Control**          | `gitsigns.nvim` (inline diffs, stage hunks, blame), `neogit` (interactive git client)                                                                         |
+| [`dap.lua`](lua/plugins/dap.lua)               | **Debugging & Tasks**        | `nvim-dap` (CodeLLDB / Tauri / Rust), `nvim-dap-ui`, `nvim-dap-python`, `overseer.nvim` (task runner)                                                         |
+| [`testing.lua`](lua/plugins/testing.lua)       | **Test Runner**              | `neotest` with adapters for `neotest-jest`, `neotest-vitest`, `neotest-playwright`, and `neotest-python`                                                      |
+| [`notes.lua`](lua/plugins/notes.lua)           | **Note Taking & Docs**       | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (inline preview), `markdown-preview.nvim` (browser preview)                       |
+| [`ai.lua`](lua/plugins/ai.lua)                 | **AI Pair Programming**      | `codecompanion.nvim` (Vertex AI / Gemini adapter), `copilot.lua`, `img-clip.nvim`                                                                             |
+| [`lang.lua`](lua/plugins/lang.lua)             | **Language Specific**        | `rustaceanvim` (custom rust-analyzer settings), `venv-selector.nvim`                                                                                          |
 
 ---
 
@@ -90,93 +90,98 @@ Leader key is mapped to <kbd>Space</kbd>.
 
 ### Navigation & General
 
-| Keybinding | Mode | Action |
-| :--- | :---: | :--- |
-| <kbd>Alt</kbd> + <kbd>h</kbd> / <kbd>j</kbd> / <kbd>k</kbd> / <kbd>l</kbd> | `n`, `i`, `t` | Navigate between window splits |
-| <kbd>Ctrl</kbd> + <kbd>w</kbd> <kbd>n</kbd> | `n` | Create vertical split buffer (`:vnew`) |
-| <kbd>Space</kbd> <kbd>Ctrl</kbd> + <kbd>q</kbd> | `n` | Close current tab page (`:tabclose`) |
-| <kbd>Esc</kbd> | `t` | Exit terminal mode to normal mode |
-| <kbd>Ctrl</kbd> + <kbd>a</kbd> / <kbd>e</kbd> | `i`, `c` | Move to start / end of line (Readline style) |
-| <kbd>Ctrl</kbd> + <kbd>b</kbd> / <kbd>f</kbd> | `i`, `c` | Move left / right (Readline style) |
-| <kbd>Space</kbd> <kbd>w</kbd> <kbd>f</kbd> | `x` | Wrap selection in an anonymous function |
-| <kbd>]e</kbd> / <kbd>[e</kbd> | `n` | Jump to next / previous diagnostic error |
+| Keybinding                                                                  |     Mode      | Action                                                 |
+| :-------------------------------------------------------------------------- | :-----------: | :----------------------------------------------------- |
+| <kbd>Alt</kbd> + <kbd>h</kbd> / <kbd>j</kbd> / <kbd>k</kbd> / <kbd>l</kbd>  | `n`, `i`, `t` | Navigate between window splits                         |
+| <kbd>Ctrl</kbd> + <kbd>w</kbd> <kbd>n</kbd>                                 |      `n`      | Create vertical split buffer (`:vnew`)                 |
+| <kbd>Space</kbd> <kbd>Ctrl</kbd> + <kbd>q</kbd>                             |      `n`      | Close current tab page (`:tabclose`)                   |
+| <kbd>Esc</kbd>                                                              |      `t`      | Exit terminal mode to normal mode                      |
+| <kbd>Ctrl</kbd> + <kbd>a</kbd> / <kbd>e</kbd>                               |   `i`, `c`    | Move to start / end of line (Readline style)           |
+| <kbd>Ctrl</kbd> + <kbd>p</kbd> / <kbd>f</kbd> / <kbd>n</kbd> / <kbd>b</kbd> |   `i`, `c`    | Move left / right (Readline style)                     |
+| <kbd>Ctrl</kbd> + <kbd>d</kbd>                                              |   `i`, `c`    | Delete forward character (Readline style)              |
+| <kbd>Ctrl</kbd> + <kbd>h</kbd>                                              |   `i`, `c`    | Delete backward character / Backspace (Readline style) |
+| <kbd>Ctrl</kbd> + <kbd>k</kbd>                                              |      `i`      | Delete from cursor to end (Readline style)             |
+| <kbd>Space</kbd> <kbd>w</kbd> <kbd>f</kbd>                                  |      `x`      | Wrap selection in an anonymous function                |
+| <kbd>]e</kbd> / <kbd>[e</kbd>                                               |      `n`      | Jump to next / previous diagnostic error               |
 
 ### Fuzzy Finder (Telescope)
 
-| Keybinding | Description |
-| :--- | :--- |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>f</kbd> | Find files in project |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>g</kbd> | Live grep in project |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>b</kbd> | Find open buffers |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>h</kbd> | Find help tags |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>t</kbd> | Find Treesitter symbols |
+| Keybinding                                 | Description                       |
+| :----------------------------------------- | :-------------------------------- |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>f</kbd> | Find files in project             |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>g</kbd> | Live grep in project              |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>b</kbd> | Find open buffers                 |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>h</kbd> | Find help tags                    |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>t</kbd> | Find Treesitter symbols           |
 | <kbd>Space</kbd> <kbd>f</kbd> <kbd>r</kbd> | Find Git repositories (`~/repos`) |
-| <kbd>Space</kbd> <kbd>f</kbd> <kbd>d</kbd> | Find Zoxide directories |
+| <kbd>Space</kbd> <kbd>f</kbd> <kbd>d</kbd> | Find Zoxide directories           |
+
+_Prompt controls_: Standard Readline editing (<kbd>Ctrl</kbd> + <kbd>a</kbd>/<kbd>e</kbd>/<kbd>b</kbd>/<kbd>f</kbd>/<kbd>d</kbd>/<kbd>h</kbd>/<kbd>u</kbd>/<kbd>k</kbd>), selection navigation (<kbd>Ctrl</kbd> + <kbd>n</kbd>/<kbd>p</kbd>), history navigation (<kbd>Ctrl</kbd> + <kbd>Down</kbd>/<kbd>Up</kbd>, <kbd>Alt</kbd> + <kbd>n</kbd>/<kbd>p</kbd>), and preview scrolling (<kbd>Alt</kbd> + <kbd>u</kbd>/<kbd>d</kbd>).
 
 ### File Tree & Editor
 
-| Keybinding | Description |
-| :--- | :--- |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>t</kbd> | Toggle file tree (`nvim-tree`) |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>f</kbd> | Find current file in tree |
-| <kbd>Space</kbd> <kbd>x</kbd> <kbd>x</kbd> | Toggle Trouble diagnostics |
+| Keybinding                                 | Description                       |
+| :----------------------------------------- | :-------------------------------- |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>t</kbd> | Toggle file tree (`nvim-tree`)    |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>f</kbd> | Find current file in tree         |
+| <kbd>Space</kbd> <kbd>x</kbd> <kbd>x</kbd> | Toggle Trouble diagnostics        |
 | <kbd>Space</kbd> <kbd>x</kbd> <kbd>X</kbd> | Toggle Trouble buffer diagnostics |
-| <kbd>Space</kbd> <kbd>c</kbd> <kbd>s</kbd> | Toggle Trouble document symbols |
-| <kbd>Space</kbd> <kbd>b</kbd> <kbd>i</kbd> | Browse Nerd Font icons (`nerdy`) |
-| <kbd>Space</kbd> <kbd>r</kbd> <kbd>i</kbd> | Browse recent icons |
+| <kbd>Space</kbd> <kbd>c</kbd> <kbd>s</kbd> | Toggle Trouble document symbols   |
+| <kbd>Space</kbd> <kbd>b</kbd> <kbd>i</kbd> | Browse Nerd Font icons (`nerdy`)  |
+| <kbd>Space</kbd> <kbd>r</kbd> <kbd>i</kbd> | Browse recent icons               |
 
 ### Git & Diff
 
-| Keybinding | Mode | Description |
-| :--- | :---: | :--- |
-| <kbd>Space</kbd> <kbd>g</kbd> <kbd>g</kbd> | `n` | Open Neogit UI |
-| <kbd>]c</kbd> / <kbd>[c</kbd> | `n` | Jump to next / previous git hunk |
+| Keybinding                                 |   Mode   | Description                      |
+| :----------------------------------------- | :------: | :------------------------------- |
+| <kbd>Space</kbd> <kbd>g</kbd> <kbd>g</kbd> |   `n`    | Open Neogit UI                   |
+| <kbd>]c</kbd> / <kbd>[c</kbd>              |   `n`    | Jump to next / previous git hunk |
 | <kbd>Space</kbd> <kbd>h</kbd> <kbd>s</kbd> | `n`, `v` | Stage hunk (or visual selection) |
 | <kbd>Space</kbd> <kbd>h</kbd> <kbd>r</kbd> | `n`, `v` | Reset hunk (or visual selection) |
-| <kbd>Space</kbd> <kbd>h</kbd> <kbd>p</kbd> | `n` | Preview hunk |
-| <kbd>Space</kbd> <kbd>h</kbd> <kbd>b</kbd> | `n` | Full line git blame |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>b</kbd> | `n` | Toggle inline blame |
+| <kbd>Space</kbd> <kbd>h</kbd> <kbd>p</kbd> |   `n`    | Preview hunk                     |
+| <kbd>Space</kbd> <kbd>h</kbd> <kbd>b</kbd> |   `n`    | Full line git blame              |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>b</kbd> |   `n`    | Toggle inline blame              |
 
 ### LSP & Code Actions
 
-| Keybinding | Description |
-| :--- | :--- |
-| <kbd>Space</kbd> <kbd>.</kbd> | LSP code action (Lspsaga) |
+| Keybinding                                 | Description                       |
+| :----------------------------------------- | :-------------------------------- |
+| <kbd>Space</kbd> <kbd>.</kbd>              | LSP code action (Lspsaga)         |
 | <kbd>Space</kbd> <kbd>r</kbd> <kbd>n</kbd> | Incremental rename (`inc-rename`) |
-| <kbd>Space</kbd> <kbd>q</kbd> | Send diagnostics to location list |
+| <kbd>Space</kbd> <kbd>q</kbd>              | Send diagnostics to location list |
 
 ### Debugging (DAP) & Tasks
 
-| Keybinding | Description |
-| :--- | :--- |
-| <kbd>F5</kbd> | DAP continue / start debugging |
-| <kbd>F6</kbd> | DAP disconnect |
-| <kbd>F10</kbd> | DAP step over |
-| <kbd>F11</kbd> | DAP step into |
-| <kbd>F12</kbd> | DAP step out |
-| <kbd>Space</kbd> <kbd>b</kbd> | Toggle breakpoint |
-| <kbd>Space</kbd> <kbd>o</kbd> | Toggle Overseer task runner |
-| <kbd>Space</kbd> <kbd>R</kbd> | Run Overseer task template |
+| Keybinding                    | Description                    |
+| :---------------------------- | :----------------------------- |
+| <kbd>F5</kbd>                 | DAP continue / start debugging |
+| <kbd>F6</kbd>                 | DAP disconnect                 |
+| <kbd>F10</kbd>                | DAP step over                  |
+| <kbd>F11</kbd>                | DAP step into                  |
+| <kbd>F12</kbd>                | DAP step out                   |
+| <kbd>Space</kbd> <kbd>b</kbd> | Toggle breakpoint              |
+| <kbd>Space</kbd> <kbd>o</kbd> | Toggle Overseer task runner    |
+| <kbd>Space</kbd> <kbd>R</kbd> | Run Overseer task template     |
 
 ### Testing (Neotest)
 
-| Keybinding | Description |
-| :--- | :--- |
-| <kbd>Space</kbd> <kbd>r</kbd> <kbd>t</kbd> | Run nearest test |
+| Keybinding                                 | Description                   |
+| :----------------------------------------- | :---------------------------- |
+| <kbd>Space</kbd> <kbd>r</kbd> <kbd>t</kbd> | Run nearest test              |
 | <kbd>Space</kbd> <kbd>r</kbd> <kbd>s</kbd> | Run test suite (current file) |
-| <kbd>Space</kbd> <kbd>r</kbd> <kbd>l</kbd> | Rerun last test |
-| <kbd>Space</kbd> <kbd>s</kbd> <kbd>t</kbd> | Stop test |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>o</kbd> | Open test output |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>p</kbd> | Toggle test output panel |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>w</kbd> | Toggle test watch mode |
-| <kbd>Space</kbd> <kbd>t</kbd> <kbd>s</kbd> | Toggle test summary |
+| <kbd>Space</kbd> <kbd>r</kbd> <kbd>l</kbd> | Rerun last test               |
+| <kbd>Space</kbd> <kbd>s</kbd> <kbd>t</kbd> | Stop test                     |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>o</kbd> | Open test output              |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>p</kbd> | Toggle test output panel      |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>w</kbd> | Toggle test watch mode        |
+| <kbd>Space</kbd> <kbd>t</kbd> <kbd>s</kbd> | Toggle test summary           |
 
 ### Notes & Markdown
 
-| Keybinding | Mode | Description |
-| :--- | :---: | :--- |
-| <kbd>Space</kbd> <kbd>l</kbd> <kbd>r</kbd> | `n` | Extract inline Markdown link to reference definition (`:MarkdownExtractRefLink`) |
-| <kbd>Space</kbd> <kbd>m</kbd> <kbd>p</kbd> | `n` | Toggle Markdown browser live preview (`:MarkdownPreviewToggle`) |
+| Keybinding                                 | Mode | Description                                                                      |
+| :----------------------------------------- | :--: | :------------------------------------------------------------------------------- |
+| <kbd>Space</kbd> <kbd>l</kbd> <kbd>r</kbd> | `n`  | Extract inline Markdown link to reference definition (`:MarkdownExtractRefLink`) |
+| <kbd>Space</kbd> <kbd>m</kbd> <kbd>p</kbd> | `n`  | Toggle Markdown browser live preview (`:MarkdownPreviewToggle`)                  |
 
 ---
 
@@ -187,6 +192,7 @@ Leader key is mapped to <kbd>Space</kbd>.
 Thanks to `lazy.nvim`'s `{ import = 'plugins' }`, you can add plugins in two ways without having to modify `init.lua`:
 
 #### Option A: Dedicated file (Recommended for large or standalone plugins)
+
 Create a new file in `lua/plugins/<name>.lua`:
 
 ```lua
@@ -202,6 +208,7 @@ return {
 ```
 
 #### Option B: Add to an existing category file
+
 Open the corresponding file in `lua/plugins/` (e.g. `lua/plugins/ui.lua`, `lua/plugins/coding.lua`) and add your plugin spec to the returned table:
 
 ```lua
@@ -220,6 +227,7 @@ return {
 Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
 
 1. **To enable a new server**, add its binary name to `vim.lsp.enable({ ... })`:
+
    ```lua
    vim.lsp.enable({
      -- existing servers...
@@ -228,6 +236,7 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
    ```
 
 2. **To customize server settings**, configure it above the enable list:
+
    ```lua
    vim.lsp.config('gopls', {
      settings = {
@@ -244,20 +253,24 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
    - **CSS Server Scoping (`cssls` & `css_variables`)**: Explicitly scoped to `css` and `less` filetypes. Because `somesass_ls` bundles the CSS language service (handling MDN documentation and custom property completions), this prevents duplicate hover dialogs and conflicting completion menus in `.scss` files while keeping CSS language features intact in `.css` files.
 
 ### 3. Adding Keymaps
+
 - **General keymaps**: Add to [`lua/config/keymaps.lua`](lua/config/keymaps.lua).
 - **Plugin-specific keymaps**: Define them directly in the plugin's spec table inside `lua/plugins/<category>.lua` using the `keys` property or within `config = function(_, opts) ... end`.
 
 ### 4. Adding Options or Autocommands
+
 - **Vim options (`vim.o` / `vim.opt`)**: Edit [`lua/config/options.lua`](lua/config/options.lua).
 - **Autocommands or User Commands**: Edit [`lua/config/autocmds.lua`](lua/config/autocmds.lua).
 
 ### 5. Markdown & Notes Workflow
+
 - **Fluid Soft Wrapping**: Breakpoints are restricted via `vim.o.breakat = ' \t-'` (both globally and per-buffer) so Neovim never breaks lines mid-URL (e.g. at `/`, `?`, `&`) or leaves orphaned punctuation when `markview.nvim` conceals link URLs. Hard line breaking (`textwidth = 0`) is disabled in insert mode.
 - **Reference Link Extraction**: Press `<leader>lr` (or run `:MarkdownExtractRefLink`) on any Markdown line containing an inline link `[label](url)` to extract it into a reference link `[label][key]` and automatically append `[key]: url` to the bottom of the document.
 - **Browser Live Preview**: Press `<leader>mp` (or run `:MarkdownPreviewToggle`) to open synchronized, real-time live preview in your default web browser powered by `markdown-preview.nvim` with full GitHub markdown styling, Mermaid diagrams, and KaTeX math support.
 - **Automated Formatting & Linting**: Markdown files are formatted on save using `prettierd` (via `conform.nvim`) and linted with `mado` (via `nvim-lint`).
 
 ### 6. Local & Private Overrides (Git-Ignored)
+
 If you have machine-specific binary paths, private API tokens, or GCP project IDs that should **never be committed to Git**:
 
 1. Copy the template:
@@ -269,7 +282,7 @@ If you have machine-specific binary paths, private API tokens, or GCP project ID
    vim.g.vertex_project_id = 'your-actual-gcp-project-id'
    vim.g.codelldb_path = '/custom/path/to/codelldb'
    ```
-   *(Alternatively, environment variables like `export VERTEX_PROJECT_ID="your-project"` are automatically respected).*
+   _(Alternatively, environment variables like `export VERTEX_PROJECT_ID="your-project"` are automatically respected)._
 
 ---
 
@@ -277,27 +290,29 @@ If you have machine-specific binary paths, private API tokens, or GCP project ID
 
 To take full advantage of this configuration, ensure the following are installed on your system:
 
-| Tool | Purpose |
-| :--- | :--- |
-| **Neovim >= 0.12** | Core editor with native LSP completion & configs |
-| **Git** | For `lazy.nvim` plugin management and git integrations |
-| **C Compiler (`gcc` / `clang`) & `make`** | Compiling Treesitter parsers and `telescope-fzf-native` |
-| **Cargo / Rust** | Compiling `blink.cmp` fuzzy engine and Rust development |
-| **[Ripgrep](https://github.com/BurntSushi/ripgrep)** | Ultra-fast search for Telescope and Blink completion |
-| **[Nerd Font](https://www.nerdfonts.com/)** | Icons for lualine, nvim-tree, and completion menu |
-| **[Zoxide](https://github.com/ajeetdsouza/zoxide)** *(optional)* | Smart directory jumping integration |
-| **CodeLLDB** *(optional)* | Debugger adapter for Rust/C++ in `/opt/codelldb/` |
+| Tool                                                             | Purpose                                                 |
+| :--------------------------------------------------------------- | :------------------------------------------------------ |
+| **Neovim >= 0.12**                                               | Core editor with native LSP completion & configs        |
+| **Git**                                                          | For `lazy.nvim` plugin management and git integrations  |
+| **C Compiler (`gcc` / `clang`) & `make`**                        | Compiling Treesitter parsers and `telescope-fzf-native` |
+| **Cargo / Rust**                                                 | Compiling `blink.cmp` fuzzy engine and Rust development |
+| **[Ripgrep](https://github.com/BurntSushi/ripgrep)**             | Ultra-fast search for Telescope and Blink completion    |
+| **[Nerd Font](https://www.nerdfonts.com/)**                      | Icons for lualine, nvim-tree, and completion menu       |
+| **[Zoxide](https://github.com/ajeetdsouza/zoxide)** _(optional)_ | Smart directory jumping integration                     |
+| **CodeLLDB** _(optional)_                                        | Debugger adapter for Rust/C++ in `/opt/codelldb/`       |
 
 ---
 
 ## Installation
 
 1. Backup your existing configuration:
+
    ```bash
    mv ~/.config/nvim ~/.config/nvim.bak
    ```
 
 2. Clone this repository:
+
    ```bash
    git clone https://github.com/fiftythanks/nvim.git ~/.config/nvim
    ```

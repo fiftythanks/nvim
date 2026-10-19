@@ -8,6 +8,7 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'nvim-neotest/neotest-jest',
+      'marilari88/neotest-vitest',
       'folke/trouble.nvim',
       {
         'thenbe/neotest-playwright',
@@ -29,6 +30,7 @@ return {
           end,
           isTestFile = require('neotest-jest.jest-util').defaultIsTestFile,
         }),
+        require('neotest-vitest'),
         require('neotest-playwright').adapter({
           options = {
             is_test_file = function(file_path)

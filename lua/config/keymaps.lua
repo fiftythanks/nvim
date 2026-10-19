@@ -31,12 +31,22 @@ vim.keymap.set('i', '<C-S-y>', '<C-y>')
 vim.keymap.set('i', '<C-e>', '<C-x><C-e>')
 vim.keymap.set('i', '<C-y>', '<C-x><C-y>')
 
--- Readline-style navigation in Insert and Command-line modes
+-- Readline-style navigation and editing in Insert and Command-line modes
 vim.keymap.set({ 'i', 'c' }, '<C-a>', '<Home>')
 vim.keymap.set({ 'i', 'c' }, '<C-e>', '<End>')
 vim.keymap.set({ 'i', 'c' }, '<C-b>', '<Left>')
 vim.keymap.set({ 'i', 'c' }, '<C-f>', '<Right>')
 vim.keymap.set({ 'i', 'c' }, '<C-d>', '<Del>')
+vim.keymap.set({ 'i', 'c' }, '<C-h>', '<BS>')
+vim.keymap.set({ 'i', 'c' }, '<C-p>', '<Up>')
+vim.keymap.set({ 'i', 'c' }, '<C-n>', '<Down>')
+vim.keymap.set('i', '<C-k>', function()
+  local col = vim.fn.col('.')
+  local line = vim.api.nvim_get_current_line()
+  if col <= #line then
+    vim.api.nvim_set_current_line(line:sub(1, col - 1))
+  end
+end, { desc = 'Delete to the end of line' })
 
 -- Word navigation in Command-line mode
 vim.keymap.set('c', '<Esc><C-b>', '<S-Left>')

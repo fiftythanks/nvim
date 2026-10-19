@@ -16,6 +16,7 @@ return {
     opts = {
       keymap = {
         preset = 'enter',
+        ['<C-k>'] = false,
         ['<C-u>'] = { 'scroll_signature_up', 'fallback' },
         ['<C-d>'] = { 'scroll_signature_down', 'fallback' },
       },

@@ -34,10 +34,17 @@ return {
       defaults = {
         mappings = {
           i = {
-            ['<C-h>'] = 'preview_scrolling_left',
-            ['<C-l>'] = 'preview_scrolling_right',
-            ['<C-j>'] = 'cycle_history_next',
-            ['<C-k>'] = 'cycle_history_prev',
+            ['<C-h>'] = false, -- Backspace (delete char backward)
+            ['<C-d>'] = false, -- Delete forward char (falls back to global keymap)
+            ['<C-f>'] = false, -- Move forward char (falls back to global keymap)
+            ['<C-u>'] = false, -- Clear prompt line (unix-line-discard)
+            ['<C-k>'] = false, -- Kill to end of line (falls back to global keymap)
+            ['<C-Down>'] = 'cycle_history_next',
+            ['<C-Up>'] = 'cycle_history_prev',
+            ['<M-n>'] = 'cycle_history_next',
+            ['<M-p>'] = 'cycle_history_prev',
+            ['<M-u>'] = 'preview_scrolling_up',
+            ['<M-d>'] = 'preview_scrolling_down',
           },
         },
       },
