@@ -30,7 +30,17 @@ return {
           end,
           isTestFile = require('neotest-jest.jest-util').defaultIsTestFile,
         }),
-        require('neotest-vitest'),
+        require('neotest-vitest')({
+          ---Custom criteria for a file path to determine if it is a vitest test file.
+          ---@async
+          ---@param file_path string Path of the potential vitest test file
+          ---@return boolean
+          is_test_file = function(file_path)
+            -- Matches .test.ts, .test.tsx, .test-d.ts at the end of the filename
+            return file_path:match('%.test%.tsx?$') ~= nil
+              or file_path:match('%.test%-d%.ts$') ~= nil
+          end,
+        }),
         require('neotest-playwright').adapter({
           options = {
             is_test_file = function(file_path)
