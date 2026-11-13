@@ -45,7 +45,7 @@ The configuration separates **core editor options**, **general keymaps**, and **
     │   └── local.lua          # (Optional) Local machine overrides & secrets (Git-ignored)
     │
     └── plugins/               # Modular plugin specifications (auto-imported)
-        ├── ai.lua             # CodeCompanion (Vertex AI), Copilot, img-clip
+        ├── ai.lua             # OMP integration, CodeCompanion, img-clip
         ├── coding.lua         # Autopairs, surround, comments, refactoring, illuminate
         ├── completion.lua     # Blink.cmp completion engine & providers
         ├── dap.lua            # DAP debugger, CodeLLDB adapter, dap-python, overseer
@@ -79,7 +79,7 @@ The configuration separates **core editor options**, **general keymaps**, and **
 | [`dap.lua`](lua/plugins/dap.lua)               | **Debugging & Tasks**        | `nvim-dap` (CodeLLDB / Tauri / Rust), `nvim-dap-ui`, `nvim-dap-python`, `overseer.nvim` (task runner)                                                         |
 | [`testing.lua`](lua/plugins/testing.lua)       | **Test Runner**              | `neotest` with adapters for `neotest-jest`, `neotest-vitest`, `neotest-playwright`, and `neotest-python`                                                      |
 | [`notes.lua`](lua/plugins/notes.lua)           | **Note Taking & Docs**       | `neorg` (workspaces, journal, todo items), `obsidian.nvim`, `markview.nvim` (inline preview), `markdown-preview.nvim` (browser preview)                       |
-| [`ai.lua`](lua/plugins/ai.lua)                 | **AI Pair Programming**      | `codecompanion.nvim` (Vertex AI / Gemini adapter), `copilot.lua`, `img-clip.nvim`                                                                             |
+| [`ai.lua`](lua/plugins/ai.lua)                 | **AI Pair Programming**      | `omp.nvim` (editor context for OMP), `codecompanion.nvim` (OMP over ACP), `img-clip.nvim`                                                                    |
 | [`lang.lua`](lua/plugins/lang.lua)             | **Language Specific**        | `rustaceanvim` (custom rust-analyzer settings), `venv-selector.nvim`                                                                                          |
 
 ---
@@ -141,6 +141,23 @@ _Prompt controls_: Standard Readline editing (<kbd>Ctrl</kbd> + <kbd>a</kbd>/<kb
 | <kbd>Space</kbd> <kbd>h</kbd> <kbd>p</kbd> |   `n`    | Preview hunk                     |
 | <kbd>Space</kbd> <kbd>h</kbd> <kbd>b</kbd> |   `n`    | Full line git blame              |
 | <kbd>Space</kbd> <kbd>t</kbd> <kbd>b</kbd> |   `n`    | Toggle inline blame              |
+
+### AI and Herdr
+
+| Keybinding | Mode | Action |
+| --- | --- | --- |
+| `Space a c` | `n` | Toggle CodeCompanion chat |
+| `Space a n` | `n` | Open a new CodeCompanion chat |
+| `Space a p` | `n`, `x` | Open the CodeCompanion action palette |
+| `Space a i` | `x` | Prompt for a CodeCompanion inline edit |
+| `Space a s` | `x` | Add the selection to CodeCompanion chat |
+| `Space a a` | `x` | Annotate the selection in Herdr |
+
+CodeCompanion chat uses `omp acp`; inline edits use `omp acp --approval-mode yolo`. **Inline mode permits OMP to run commands and write files without approval**: rejecting an inline diff does not undo other actions. Chat also autoloads `.ai_system_prompt.md` as a rule when present. CodeCompanion tracks stable releases rather than remaining on the v18 series.
+
+`omp.nvim` provides editor context to an OMP terminal session when its OMP extension is installed (`omp plugin install omp.nvim`). Herdr annotation requires the `herdr` command and its annotation plugin.
+
+`todo-comments.nvim` recognises custom `REFACTOR`, `DILEMMA` and `WHY` keywords alongside the configured standard keywords, including optional parenthesised qualifiers such as `TODO(name):`.
 
 ### LSP & Code Actions
 
@@ -249,7 +266,7 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
    ```
 
 3. **Styles & Preprocessor Architecture (`somesass_ls` vs `cssls`)**:
-   - **SCSS / Sass (`somesass_ls`)**: Configured with dynamic path alias discovery (`before_init`) scanning `src/` to resolve `@/` imports (e.g. `@/styles/...`), ensuring full SassDoc hover previews and symbol navigation on mixins, functions, and variables.
+   - **SCSS / Sass (`somesass_ls`)**: Root discovery prioritises `.git` before `package.json`. Before initialisation, the server uses `@/` for `src/` and adds aliases for its immediate subdirectories when `src/` exists; if it is absent, the configured aliases remain. This is the current root and alias policy. SassDoc hover previews and symbol navigation cover mixins, functions, and variables.
    - **CSS Server Scoping (`cssls` & `css_variables`)**: Explicitly scoped to `css` and `less` filetypes. Because `somesass_ls` bundles the CSS language service (handling MDN documentation and custom property completions), this prevents duplicate hover dialogs and conflicting completion menus in `.scss` files while keeping CSS language features intact in `.css` files.
 
 ### 3. Adding Keymaps
@@ -271,7 +288,7 @@ Open [`lua/plugins/lsp.lua`](lua/plugins/lsp.lua):
 
 ### 6. Local & Private Overrides (Git-Ignored)
 
-If you have machine-specific binary paths, private API tokens, or GCP project IDs that should **never be committed to Git**:
+If you have machine-specific binary paths or private settings that should **never be committed to Git**:
 
 1. Copy the template:
    ```bash
@@ -279,10 +296,9 @@ If you have machine-specific binary paths, private API tokens, or GCP project ID
    ```
 2. Set your local overrides inside [`lua/config/local.lua`](lua/config/local.lua):
    ```lua
-   vim.g.vertex_project_id = 'your-actual-gcp-project-id'
    vim.g.codelldb_path = '/custom/path/to/codelldb'
    ```
-   _(Alternatively, environment variables like `export VERTEX_PROJECT_ID="your-project"` are automatically respected)._
+   Configure application-specific credentials using the relevant application's own local settings or environment.
 
 ---
 
@@ -300,6 +316,7 @@ To take full advantage of this configuration, ensure the following are installed
 | **[Nerd Font](https://www.nerdfonts.com/)**                      | Icons for lualine, nvim-tree, and completion menu       |
 | **[Zoxide](https://github.com/ajeetdsouza/zoxide)** _(optional)_ | Smart directory jumping integration                     |
 | **CodeLLDB** _(optional)_                                        | Debugger adapter for Rust/C++ in `/opt/codelldb/`       |
+| **OMP** _(optional)_                                             | CodeCompanion ACP chat and inline edits; `omp.nvim` context integration also needs the OMP extension |
 
 ---
 

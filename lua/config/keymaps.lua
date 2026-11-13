@@ -64,3 +64,17 @@ vim.keymap.set('n', '<leader><C-q>', '<Cmd>tabclose<CR>', {
 vim.keymap.set('n', '<C-w>n', '<Cmd>vnew<CR>', {
   desc = 'Create a vertical split new buffer',
 })
+
+-- Herdr
+vim.keymap.set('x', '<leader>aa', function()
+  -- Hand the selection to the plugin through a file: works on headless servers too.
+  vim.cmd('normal! "zy')
+  local base = os.getenv('XDG_RUNTIME_DIR')
+  if not base or base == '' then
+    base = vim.fn.fnamemodify(vim.fn.tempname(), ':h')
+  end
+  local dir = base .. '/herdr-annotate-' .. vim.loop.getuid()
+  vim.fn.mkdir(dir, 'p', '0700')
+  vim.fn.writefile(vim.split(vim.fn.getreg('z'), '\n'), dir .. '/selection')
+  vim.fn.jobstart({ 'herdr', 'plugin', 'action', 'invoke', 'annotate.capture' })
+end, { desc = 'Annotate in Herdr' })

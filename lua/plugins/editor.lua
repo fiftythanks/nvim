@@ -15,11 +15,20 @@ return {
       require('nvim-tree').setup(opts)
 
       local tree = require('nvim-tree.api').tree
-      vim.keymap.set('n', '<leader>tt', tree.toggle, { desc = 'Toggle file tree' })
-      vim.keymap.set('n', '<leader>tf', tree.find_file, { desc = 'Find file in tree' })
+      vim.keymap.set(
+        'n',
+        '<leader>tt',
+        tree.toggle,
+        { desc = 'Toggle file tree' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>tf',
+        tree.find_file,
+        { desc = 'Find file in tree' }
+      )
     end,
   },
-
   -- Diagnostics, references, and telescope list viewer
   {
     'folke/trouble.nvim',
@@ -58,23 +67,33 @@ return {
       },
     },
   },
-
-  -- Highlight and search TODO / FIX / NOTE comments
   {
     'folke/todo-comments.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       keywords = {
-        ['DILEMMA'] = {
-          icon = '',
-          color = 'info',
+        FIXME = { icon = ' ', color = 'error', alt = { 'BUG', 'ISSUE' } },
+        TODO = { icon = ' ', color = 'info' },
+        HACK = { icon = ' ', color = 'warning' },
+        REFACTOR = { icon = ' ', color = 'hint' },
+        DILEMMA = { icon = ' ', color = 'test' },
+        WHY = { icon = ' ', color = 'hint' },
+        WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
+        PERF = {
+          icon = ' ',
+          color = 'default',
+          alt = { 'OPTIM', 'PERFORMANCE' },
         },
+      },
+      highlight = {
+        comments_only = true,
+        pattern = [[.*<((KEYWORDS)%(\(.{-}\))?):]],
+      },
+      search = {
+        pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]],
       },
     },
   },
-
   -- Nerd Font glyph / icon picker
   {
     '2kabhishek/nerdy.nvim',
@@ -91,11 +110,20 @@ return {
     config = function(_, opts)
       require('nerdy').setup(opts)
 
-      vim.keymap.set('n', '<leader>bi', '<Cmd>Nerdy list<CR>', { desc = 'Browse icons' })
-      vim.keymap.set('n', '<leader>ri', '<Cmd>Nerdy recents<CR>', { desc = 'Browse recent icons' })
+      vim.keymap.set(
+        'n',
+        '<leader>bi',
+        '<Cmd>Nerdy list<CR>',
+        { desc = 'Browse icons' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>ri',
+        '<Cmd>Nerdy recents<CR>',
+        { desc = 'Browse recent icons' }
+      )
     end,
   },
-
   -- Highlight range in command line (e.g. :10,20s/...)
   {
     'winston0410/range-highlight.nvim',
@@ -108,7 +136,6 @@ return {
       },
     },
   },
-
   -- Auto-change directory to project root
   {
     'wsdjeg/rooter.nvim',
@@ -116,7 +143,6 @@ return {
       root_pattern = { '.git/' },
     },
   },
-
   -- Zoxide integration for Vim
   {
     'nanotee/zoxide.vim',

@@ -1,18 +1,26 @@
 return {
+  { 'rauls-kjarners/omp.nvim', event = 'VeryLazy', opts = {} },
+
   -- AI Pair Programmer (CodeCompanion)
   {
     'olimorris/codecompanion.nvim',
-    version = '~18', -- Pin to v18.x
+    version = '*', -- Track stable releases
+    lazy = false,
+    keys = {
+      { '<leader>ac', '<cmd>CodeCompanionChat Toggle<cr>', desc = 'Toggle AI chat' },
+      { '<leader>an', '<cmd>CodeCompanionChat<cr>', desc = 'New AI chat' },
+      { '<leader>ap', '<cmd>CodeCompanionActions<cr>', mode = { 'n', 'x' }, desc = 'AI action palette' },
+      { '<leader>ai', ':CodeCompanion<cr>', mode = 'x', desc = 'AI inline edit' },
+      { '<leader>as', '<cmd>CodeCompanionChat Add<cr>', mode = 'x', desc = 'Add selection to AI chat' },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
-      'viespejo/cc-adapter-vertex-ai.nvim',
     },
     opts = {
       rules = {
         default = {
           files = { '.ai_system_prompt.md' },
-          is_present = true,
         },
         opts = {
           chat = {
@@ -22,48 +30,28 @@ return {
         },
       },
       adapters = {
-        http = {
-          vertex_gemini = function()
-            return require('codecompanion.adapters').extend(
-              require('codecompanion.adapters.http.vertex-gemini'),
-              {
-                env = {
-                  project_id = vim.env.VERTEX_PROJECT_ID
-                    or vim.g.vertex_project_id
-                    or 'your-gcp-project-id',
-                  region = vim.env.VERTEX_REGION
-                    or vim.g.vertex_region
-                    or 'global',
-                },
-              }
-            )
+        acp = {
+          omp = function()
+            return require('codecompanion.adapters.acp').extend('goose', {
+              name = 'omp',
+              formatted_name = 'Oh My Pi',
+              commands = { default = { 'omp', 'acp' } },
+            })
+          end,
+          omp_inline = function()
+            return require('codecompanion.adapters.acp').extend('goose', {
+              name = 'omp_inline',
+              formatted_name = 'Oh My Pi (Inline)',
+              commands = {
+                default = { 'omp', 'acp', '--approval-mode', 'yolo' },
+              },
+            })
           end,
         },
       },
       interactions = {
-        chat = { adapter = 'vertex_gemini' },
-        inline = {
-          adapter = 'vertex_gemini',
-        },
-      },
-    },
-  },
-
-  -- GitHub Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    dependencies = { 'copilotlsp-nvim/copilot-lsp' },
-    opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = false,
-        keymap = {
-          jump_prev = '[[',
-          jump_next = ']]',
-          accept = '<CR>',
-          refresh = 'gr',
-          open = false, -- Disables default <M-CR> / <C-CR> panel trigger
-        },
+        chat = { adapter = 'omp' },
+        inline = { adapter = 'omp_inline' },
       },
     },
   },
